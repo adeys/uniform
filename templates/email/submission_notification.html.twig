@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+<head>
+    <meta content="width=device-width" name="viewport"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta name="x-apple-disable-message-reformatting" content=""/>
+    <meta content="telephone=no,address=no,date=no,url=no" name="format-detection"/>
+    <meta content="light" name="color-scheme"/>
+    <meta content="light" name="supported-color-schemes"/>
+
+    <title>New submission for {{ formName }}</title>
+
+    <style type="text/css">
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            mso-font-alt: 'sans-serif';
+            src: url(https://rsms.me/inter/font-files/Inter-Regular.woff2?v=3.19) format('woff2');
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+
+        blockquote, h1, h2, h3, img, li, ol, p, ul {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+    </style>
+</head>
+<body>
+<table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation"
+       style="max-width:600px;min-width:300px;width:100%;margin-left:auto;margin-right:auto;padding:0.5rem">
+    <tbody>
+    <tr style="width:100%">
+        <td>
+            <h3 style="text-align:left;color:rgb(17, 24, 39);margin-bottom:12px;margin-top:0px;font-size:24px;line-height:38px;font-weight:600">
+                New submission for {{ formName }}
+            </h3>
+            <p style="text-align:left;color:rgb(17, 24, 39);margin-bottom:12px;margin-top:0px;font-size:16px;line-height:26px">
+                A new submission has been received for {{ formName }}.
+            </p>
+        </td>
+    </tr>
+    <tr style="width: 100%">
+        <td>
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 50%; padding-right: 1rem">
+                        <h4 style="text-align:left;color:rgb(17, 24, 39);margin-bottom:12px;margin-top:0px;font-size:20px;line-height:32px;font-weight:600">
+                            Details
+                        </h4>
+                        <table style="width: 100%; border-radius: 6px; border-color: #555555; border-collapse: collapse" border="1">
+                            <tbody>
+                            {% for field, answer in answers %}
+                                <tr>
+                                    <td style="width: 30%; padding: 8px 12px">
+                                        <p style="text-align:left;color:rgb(17, 24, 39);font-size:16px;line-height:26px; font-weight: bold">
+                                            {{ field }}
+                                        </p>
+                                    </td>
+                                    <td style="padding: 8px 12px">
+                                        <p style="text-align:left;color:rgb(17, 24, 39);font-size:16px;line-height:26px">
+                                            {{ answer }}
+                                        </p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

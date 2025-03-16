@@ -7,13 +7,13 @@ use App\Entity\FormSubmission;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class SubmissionService
+readonly class SubmissionService
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
     }
 
-    public function saveSubmission(FormDefinition $endpoint, Request $request): void
+    public function saveSubmission(FormDefinition $endpoint, Request $request): FormSubmission
     {
         $payload = $request->getPayload()->all();
 
@@ -24,6 +24,8 @@ class SubmissionService
 
         $this->entityManager->persist($submission);
         $this->entityManager->flush();
+
+        return $submission;
     }
 
     /** @noinspection PhpUnhandledExceptionInspection */
@@ -43,7 +45,7 @@ class SubmissionService
         $keys = $this->getSubmittedFields($endpoint);
         $columns = [];
 
-        foreach (['name', 'email', 'subject', 'message'] as $key) {
+        foreach (['email', 'name', 'subject', 'message'] as $key) {
             if (in_array($key, $keys, true)) {
                 $columns[] = $key;
             }

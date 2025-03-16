@@ -8,7 +8,7 @@ use App\Form\FormDefinitionType;
 use App\Repository\FormDefinitionRepository;
 use App\Repository\FormSubmissionRepository;
 use App\Service\FormEndpoint\SubmissionService;
-use App\Service\Notification\ProviderInterface;
+use App\Service\Notification\ChannelInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
@@ -104,7 +104,7 @@ final class EndpointController extends AbstractController
         }
 
         foreach ($notificationProviders as $provider) {
-            /* @var $provider ProviderInterface */
+            /* @var $provider ChannelInterface */
             $settings = $savedProviders[$provider->getName()]
                 ?? (new NotificationSettings())
                     ->setType($provider->getName())

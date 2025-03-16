@@ -26,7 +26,7 @@ class FormSubmission
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeInterface $submittedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'submissions')]
+    #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'submissions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?FormDefinition $form = null;
 

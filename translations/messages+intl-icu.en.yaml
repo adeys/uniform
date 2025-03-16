@@ -16,6 +16,9 @@ admin:
         loading: Loading...
     title:
         dashboard: Dashboard
+email:
+    submission:
+        notification_subject: 'New submission for {form}'
 flash:
     form_endpoint:
         created: 'Form endpoint created.'
@@ -34,12 +37,12 @@ label:
             email_from_address: 'Email From Address'
             email_from_name: 'Email From Name'
             mail_sender: 'Mail Sender'
+            mailer_encryption: Encryption
             smtp_host: Host
             smtp_password: Password
             smtp_port: Port
             smtp_server: 'SMTP Server'
             smtp_user: User
-            mailer_encryption: Encryption
         form:
             endpoint:
                 select_submission: 'Select Submission'
