@@ -76,7 +76,7 @@
     <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
         <div class="inline-flex items-start place-items-start gap-2">
             {{- form_widget(form, {attr: widget_attr}) -}}
-            {{- form_label(form, null, {'label_class': label_class|default('inline-block -mt-1 font-medium text-neutral-700')}) -}}
+            {{- form_label(form, null, {'label_class': label_class|default('inline-block text-sm font-medium text-neutral-700')}) -}}
         </div>
 
         {{- form_help(form) -}}

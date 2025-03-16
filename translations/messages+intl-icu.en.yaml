@@ -20,6 +20,9 @@ flash:
     form_endpoint:
         created: 'Form endpoint created.'
         updated: 'Form endpoint updated.'
+help:
+    form_endpoint:
+        redirect_url: 'The URL to redirect to after the form is submitted. Defaults to UniForm "Thank You" page.'
 label:
     admin:
         form:
@@ -28,6 +31,11 @@ label:
                 settings: Settings
                 submission_date: 'Submitted On'
                 submissions: Submissions
+        settings:
+            email_notification:
+                enabled: 'Send email notifications on form submission'
+                target_email: 'Target email addresses'
+                template: 'Email template'
     form:
         description: Description
         endpoint:
@@ -48,6 +56,12 @@ label:
         name: Name
         required: 'Is Required?'
         type: Type
+message:
+    admin:
+        settings:
+            email_notification:
+                help: 'Email notifications are sent to the target email address when a form is submitted.'
+                label: 'Email Notifications'
 title:
     admin:
         form:
@@ -55,8 +69,7 @@ title:
                 list: 'Form Endpoints'
                 new: 'New Form Endpoint'
                 settings: Settings
+                settings.general: General
+                settings.notifications: Notifications
                 submissions: Submissions
     welcome: 'Welcome to UniForm!'
-help:
-    form_endpoint:
-        redirect_url: 'The URL to redirect to after the form is submitted. Defaults to UniForm "Thank You" page.'

@@ -205,12 +205,12 @@
   }
 
   .form-label {
-    @apply block text-neutral-700 font-medium text-sm sm:text-base;
+    @apply block text-neutral-700 font-medium text-sm;
   }
 
   .form-control {
-    @apply block w-full outline-none rounded-md px-3 py-1.5
-    text-neutral-700 text-sm sm:leading-6 sm:text-base
+    @apply block w-full outline-none rounded px-3 py-1.5
+    text-neutral-700 text-sm
     border border-neutral-300
     placeholder:opacity-60
     focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600

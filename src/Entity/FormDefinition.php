@@ -55,10 +55,17 @@ class FormDefinition
     #[ORM\OneToMany(targetEntity: FormSubmission::class, mappedBy: 'form', orphanRemoval: true)]
     private Collection $submissions;
 
+    /**
+     * @var Collection<int, FormNotificationSettings>
+     */
+    #[ORM\OneToMany(targetEntity: FormNotificationSettings::class, mappedBy: 'form', orphanRemoval: true)]
+    private Collection $notificationSettings;
+
     public function __construct()
     {
         $this->fields = new ArrayCollection();
         $this->submissions = new ArrayCollection();
+        $this->notificationSettings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,6 +197,36 @@ class FormDefinition
     public function setRedirectUrl(?string $redirectUrl): static
     {
         $this->redirectUrl = $redirectUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FormNotificationSettings>
+     */
+    public function getNotificationSettings(): Collection
+    {
+        return $this->notificationSettings;
+    }
+
+    public function addNotificationSetting(FormNotificationSettings $notificationSetting): static
+    {
+        if (!$this->notificationSettings->contains($notificationSetting)) {
+            $this->notificationSettings->add($notificationSetting);
+            $notificationSetting->setForm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotificationSetting(FormNotificationSettings $notificationSetting): static
+    {
+        if ($this->notificationSettings->removeElement($notificationSetting)) {
+            // set the owning side to null (unless already changed)
+            if ($notificationSetting->getForm() === $this) {
+                $notificationSetting->setForm(null);
+            }
+        }
 
         return $this;
     }

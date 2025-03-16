@@ -1,10 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import { useTransition } from 'stimulus-use';
 
-/* stimulusFetch: 'lazy' */
-/**
- * @method enter() - Triggers the enter transition
- */
+/** stimulusFetch: 'lazy' */
 export default class extends Controller {
   static values = {
     delay: { type: Number, default: 4000 },
@@ -15,6 +12,7 @@ export default class extends Controller {
   timeout = null;
 
   connect() {
+    console.log('connected');
     if (this.positionValue === 'center') {
       useTransition(this, {
         enterFrom: 'opacity-0 -translate-y-6',

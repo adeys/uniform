@@ -3,12 +3,16 @@
 namespace App\Controller\Admin\Form;
 
 use App\Entity\FormDefinition;
+use App\Entity\FormNotificationSettings;
 use App\Form\FormDefinitionType;
 use App\Repository\FormDefinitionRepository;
 use App\Repository\FormSubmissionRepository;
 use App\Service\FormEndpoint\SubmissionService;
+use App\Service\Notification\ProviderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -74,9 +78,63 @@ final class EndpointController extends AbstractController
             return $this->redirectToRoute('app_admin_form_endpoint_settings', ['id' => $formDefinition->getId()]);
         }
 
-        return $this->render('admin/form/endpoint/settings.html.twig', [
+        return $this->render('admin/form/endpoint/settings/general.html.twig', [
             'endpointForm' => $endpointForm,
             'endpoint' => $formDefinition,
         ]);
+    }
+
+    #[Route('/admin/form/endpoints/{id}/settings/notifications', name: 'app_admin_form_endpoint_notification_settings', methods: ['GET', 'POST'])]
+    public function notificationSettings(
+        FormDefinition $formDefinition,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        #[AutowireIterator(tag: 'app.notification.provider', defaultIndexMethod: 'getName', defaultPriorityMethod: 'getPriority')]
+        iterable $notificationProviders,
+    ): Response {
+        $notificationProviders = iterator_to_array($notificationProviders);
+        $savedProviders = [];
+        $settingsForms = [];
+
+        foreach ($formDefinition->getNotificationSettings() as $notificationSettings) {
+            $savedProviders[$notificationSettings->getType()] = $notificationSettings;
+        }
+
+        foreach ($notificationProviders as $provider) {
+            /* @var $provider ProviderInterface */
+            dump($provider);
+            $settings = $savedProviders[$provider->getName()]
+                ?? (new FormNotificationSettings())
+                    ->setType($provider->getName())
+            ;
+            $settingsForms[$provider->getName()] = $this->createForm($provider->getConfigurationForm(), $settings);
+        }
+
+        if ($request->isMethod('POST')) {
+            foreach ($settingsForms as $form) {
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    /** @var FormNotificationSettings $notification */
+                    $notification = $form->getData();
+                    if (!$notification->isEnabled() && !$notification->getId()) {
+                        // If the notification is not enabled, and it's a new one, we don't need to save it
+                        continue;
+                    }
+
+                    $notification->setForm($formDefinition);
+                    $entityManager->persist($notification);
+                    $entityManager->flush();
+
+                    $this->addFlash('success', t('flash.form_endpoint.notification_settings.updated'));
+
+                    return $this->redirectToRoute('app_admin_form_endpoint_notification_settings', ['id' => $formDefinition->getId()]);
+                }
+            }
+        }
+
+        return $this->render('admin/form/endpoint/settings/notifications.html.twig', [
+            'endpoint' => $formDefinition,
+            'settingsForms' => array_map(fn (FormInterface $form) => $form->createView(), $settingsForms),
+        ], new Response(status: $request->isMethod('GET') ? Response::HTTP_OK : Response::HTTP_UNPROCESSABLE_ENTITY));
     }
 }
