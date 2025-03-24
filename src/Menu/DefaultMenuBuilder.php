@@ -22,8 +22,8 @@ readonly class DefaultMenuBuilder
     {
         $menu = $this->factory->createItem('root');
 
-        $menu->addChild(t('menu.admin.default.form_endpoints'), ['route' => 'app_admin_form_endpoint_list']);
-        $menu->addChild(t('menu.admin.default.settings'), ['route' => 'app_admin_settings']);
+        $menu->addChild(t('menu.admin.default.form_endpoints'), ['route' => 'app_dashboard_form_endpoint_list']);
+        $menu->addChild(t('menu.admin.default.settings'), ['route' => 'app_dashboard_settings']);
 
         return $menu;
     }
@@ -40,24 +40,24 @@ readonly class DefaultMenuBuilder
 
         $menu = $this->factory->createItem('root');
         $menu->addChild(t('menu.admin.form_endpoint.setup'), [
-            'route' => 'app_admin_form_endpoint_setup',
+            'route' => 'app_dashboard_form_endpoint_setup',
             'routeParameters' => $routeParameters,
         ]);
         $menu->addChild(t('menu.admin.form_endpoint.submissions'), [
-            'route' => 'app_admin_form_endpoint_submission_list',
+            'route' => 'app_dashboard_form_endpoint_submission_list',
             'routeParameters' => $routeParameters,
         ]);
         $settingsMenu = $menu->addChild(t('menu.admin.form_endpoint.settings'), [
-            'route' => 'app_admin_form_endpoint_general_settings',
+            'route' => 'app_dashboard_form_endpoint_general_settings',
             'routeParameters' => $routeParameters,
         ]);
 
         $settingsMenu->addChild(t('menu.admin.form_endpoint.settings.general'), [
-            'route' => 'app_admin_form_endpoint_general_settings',
+            'route' => 'app_dashboard_form_endpoint_general_settings',
             'routeParameters' => $routeParameters,
         ]);
         $settingsMenu->addChild(t('menu.admin.form_endpoint.settings.notifications'), [
-            'route' => 'app_admin_form_endpoint_notification_settings',
+            'route' => 'app_dashboard_form_endpoint_notification_settings',
             'routeParameters' => $routeParameters,
         ]);
 

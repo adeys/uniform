@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Dashboard;
 
 use App\Entity\Settings\AccountSettings;
 use App\Form\Settings\AccountSettingsType;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class SettingsController extends AbstractController
 {
-    #[Route('/admin/settings', name: 'app_admin_settings', methods: ['GET', 'POST'])]
+    #[Route('/dashboard/settings', name: 'app_dashboard_settings', methods: ['GET', 'POST'])]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $settings = $entityManager->getRepository(AccountSettings::class)->findOneBy([]) ?? new AccountSettings();
@@ -25,7 +25,7 @@ final class SettingsController extends AbstractController
 
             $this->addFlash('success', 'Settings saved successfully');
 
-            return $this->redirectToRoute('app_admin_settings');
+            return $this->redirectToRoute('app_dashboard_settings');
         }
 
         return $this->render('admin/settings/index.html.twig', [

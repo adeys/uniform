@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\Form;
+namespace App\Controller\Dashboard\Form;
 
 use App\Entity\FormDefinition;
 use App\Entity\Settings\NotificationSettings;
@@ -21,7 +21,7 @@ use function Symfony\Component\Translation\t;
 
 final class EndpointController extends AbstractController
 {
-    #[Route('/admin/form/endpoints', name: 'app_admin_form_endpoint_list')]
+    #[Route('/dashboard/forms', name: 'app_dashboard_form_endpoint_list')]
     public function index(FormDefinitionRepository $repository): Response
     {
         return $this->render('admin/form/endpoint/index.html.twig', [
@@ -29,12 +29,12 @@ final class EndpointController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/form/endpoints/new', name: 'app_admin_form_endpoint_new', methods: ['GET', 'POST'])]
+    #[Route('/dashboard/forms/new', name: 'app_dashboard_form_endpoint_new', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $endpoint = new FormDefinition();
         $endpointForm = $this->createForm(FormDefinitionType::class, $endpoint, [
-            'action' => $this->generateUrl('app_admin_form_endpoint_new'),
+            'action' => $this->generateUrl('app_dashboard_form_endpoint_new'),
         ]);
         $endpointForm->handleRequest($request);
 
@@ -44,7 +44,7 @@ final class EndpointController extends AbstractController
 
             $this->addFlash('success', t('flash.form_endpoint.created'));
 
-            return $this->redirectToRoute('app_admin_form_endpoint_list');
+            return $this->redirectToRoute('app_dashboard_form_endpoint_list');
         }
 
         return $this->render('admin/form/endpoint/new.html.twig', [
@@ -52,7 +52,7 @@ final class EndpointController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/form/endpoints/{id}/setup', name: 'app_admin_form_endpoint_setup', methods: ['GET', 'POST'])]
+    #[Route('/dashboard/forms/{id}/setup', name: 'app_dashboard_form_endpoint_setup', methods: ['GET', 'POST'])]
     public function setup(FormDefinition $formDefinition): Response
     {
         return $this->render('admin/form/endpoint/setup.html.twig', [
@@ -60,7 +60,7 @@ final class EndpointController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/form/endpoints/{id}/submissions', name: 'app_admin_form_endpoint_submission_list', methods: ['GET', 'POST'])]
+    #[Route('/dashboard/forms/{id}/submissions', name: 'app_dashboard_form_endpoint_submission_list', methods: ['GET', 'POST'])]
     public function submissions(FormDefinition $formDefinition, FormSubmissionRepository $submissionRepository, SubmissionService $submissionService): Response
     {
         return $this->render('admin/form/endpoint/submissions.html.twig', [
@@ -70,7 +70,7 @@ final class EndpointController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/form/endpoints/{id}/settings/general', name: 'app_admin_form_endpoint_general_settings', methods: ['GET', 'POST'])]
+    #[Route('/dashboard/forms/{id}/settings/general', name: 'app_dashboard_form_endpoint_general_settings', methods: ['GET', 'POST'])]
     public function generalSettings(Request $request, FormDefinition $formDefinition, EntityManagerInterface $entityManager): Response
     {
         $endpointForm = $this->createForm(FormDefinitionType::class, $formDefinition, [
@@ -86,7 +86,7 @@ final class EndpointController extends AbstractController
 
             $this->addFlash('success', t('flash.form_endpoint.updated'));
 
-            return $this->redirectToRoute('app_admin_form_endpoint_general_settings', ['id' => $formDefinition->getId()]);
+            return $this->redirectToRoute('app_dashboard_form_endpoint_general_settings', ['id' => $formDefinition->getId()]);
         }
 
         return $this->render('admin/form/endpoint/settings/general.html.twig', [
@@ -95,7 +95,7 @@ final class EndpointController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/form/endpoints/{id}/settings/notifications', name: 'app_admin_form_endpoint_notification_settings', methods: ['GET', 'POST'])]
+    #[Route('/dashboard/forms/{id}/settings/notifications', name: 'app_dashboard_form_endpoint_notification_settings', methods: ['GET', 'POST'])]
     public function notificationSettings(
         FormDefinition $formDefinition,
         Request $request,
@@ -137,7 +137,7 @@ final class EndpointController extends AbstractController
 
                     $this->addFlash('success', t('flash.form_endpoint.notification_settings.updated'));
 
-                    return $this->redirectToRoute('app_admin_form_endpoint_notification_settings', ['id' => $formDefinition->getId()]);
+                    return $this->redirectToRoute('app_dashboard_form_endpoint_notification_settings', ['id' => $formDefinition->getId()]);
                 }
             }
         }

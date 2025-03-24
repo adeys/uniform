@@ -14,13 +14,13 @@ final class DefaultController extends AbstractController
         return $this->render('default/index.html.twig');
     }
 
-    #[Route('/contact', name: 'app_default_contact')]
+    #[Route('/contact', name: 'app_default_contact', env: 'dev')]
     public function contact(): Response
     {
         return $this->render('default/contact.html.twig');
     }
 
-    #[Route('/thank-you', name: 'app_form_submit_success')]
+    #[Route('/thank-you', name: 'app_form_submit_success', env: 'dev')]
     public function submitSuccess(): Response
     {
         return $this->render('default/form/submit_success.html.twig');
