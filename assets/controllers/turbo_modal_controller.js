@@ -1,6 +1,6 @@
 import ModalController from './modal_controller.js';
 
-/* stimulusFetch: 'lazy' */
+/* stimulusFetch: 'eager' */
 export default class extends ModalController {
   static targets = ['dialog', 'content', 'placeholder'];
 
