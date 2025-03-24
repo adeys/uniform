@@ -32,6 +32,10 @@ final class EndpointController extends AbstractController
     #[Route('/dashboard/forms/new', name: 'app_dashboard_form_endpoint_new', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if ('turbo-modal' !== $request->headers->get('Turbo-Frame')) {
+            return $this->redirectToRoute('app_dashboard_form_endpoint_list');
+        }
+
         $endpoint = new FormDefinition();
         $endpointForm = $this->createForm(FormDefinitionType::class, $endpoint, [
             'action' => $this->generateUrl('app_dashboard_form_endpoint_new'),

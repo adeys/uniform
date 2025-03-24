@@ -1,9 +1,18 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-    {{ 'title.welcome'|trans }}
+    UniForm
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-2xl font-bold mb-3">Welcome to UniForm!</h1>
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="text-center w-(--breakpoint-md) space-y-3">
+            <h1 class="text-2xl lg:text-4xl font-bold">UniForm</h1>
+
+            <p class="text-lg">
+                Uniform is a lightweight, self-hostable form backend and form builder. <br>
+                It provides form endpoints for collecting submissions and a no-code form builder for easy form creation <em>à la</em> Google Forms.
+            </p>
+        </div>
+    </div>
 {% endblock %}
