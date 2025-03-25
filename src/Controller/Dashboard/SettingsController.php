@@ -3,23 +3,26 @@
 namespace App\Controller\Dashboard;
 
 use App\Entity\Settings\AccountSettings;
+use App\Entity\User;
 use App\Form\Settings\AccountSettingsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 final class SettingsController extends AbstractController
 {
     #[Route('/dashboard/settings', name: 'app_dashboard_settings', methods: ['GET', 'POST'])]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, #[CurrentUser] User $currentUser, EntityManagerInterface $entityManager): Response
     {
         $settings = $entityManager->getRepository(AccountSettings::class)->findOneBy(['owner' => $this->getUser()]) ?? new AccountSettings();
         $settingsForm = $this->createForm(AccountSettingsType::class, $settings);
 
         $settingsForm->handleRequest($request);
         if ($settingsForm->isSubmitted() && $settingsForm->isValid()) {
+            $settings->setOwner($currentUser);
             $entityManager->persist($settings);
             $entityManager->flush();
 
