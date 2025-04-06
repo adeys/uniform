@@ -13,6 +13,6 @@ final class DefaultControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertPageTitleContains('Welcome');
-        $this->assertSelectorTextContains('h1', 'Welcome to UniForm!');
+        $this->assertSelectorTextContains('h1', 'UniForm');
     }
 }

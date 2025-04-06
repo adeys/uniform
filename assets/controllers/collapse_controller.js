@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
-/* stimulusFetch: 'eager' */
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
   static targets = ['content'];
   static values = { open: Boolean };

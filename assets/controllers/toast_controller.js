@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import { useTransition } from 'stimulus-use';
 
-/* stimulusFetch: 'eager' */
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
   static values = {
     delay: { type: Number, default: 4000 },
