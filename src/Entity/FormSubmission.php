@@ -70,4 +70,12 @@ class FormSubmission
 
         return $this;
     }
+
+    public function getNotificationPayload(): array
+    {
+        return [
+            ...$this->payload,
+            'submittedAt' => $this->submittedAt->format('Y-m-d H:i:s'),
+        ];
+    }
 }

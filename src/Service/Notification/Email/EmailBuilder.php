@@ -16,7 +16,7 @@ readonly class EmailBuilder
     public function buildNotificationEmail(FormSubmission $formSubmission): Email
     {
         $context = [
-            'answers' => $formSubmission->getPayload(),
+            'answers' => $formSubmission->getNotificationPayload(),
             'formName' => $formSubmission->getForm()->getName(),
         ];
 

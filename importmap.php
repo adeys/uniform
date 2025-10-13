@@ -46,4 +46,16 @@ return [
         'version' => '1.30.0',
         'type' => 'css',
     ],
+    '@floating-ui/dom' => [
+        'version' => '1.7.4',
+    ],
+    '@floating-ui/core' => [
+        'version' => '1.7.3',
+    ],
+    '@floating-ui/utils' => [
+        'version' => '0.2.10',
+    ],
+    '@floating-ui/utils/dom' => [
+        'version' => '0.2.10',
+    ],
 ];

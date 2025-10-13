@@ -31,7 +31,23 @@
                             </p>
                         </div>
 
-                        <div>
+                        <div class="flex gap-2 items-center">
+                            <div data-controller="dropdown">
+                                <button data-dropdown-target="trigger" class="p-2 rounded-md text-neutral-600 hover:text-neutral-700 hover:bg-neutral-100">
+                                    {{ ux_icon('heroicons:ellipsis-horizontal-20-solid', {'class': 'size-6'}) }}
+                                    <span class="sr-only">{{ 'action.admin.form.endpoint.more_actions'|trans }}</span>
+                                </button>
+
+                                <div data-dropdown-target="popover" class="hidden absolute top-1 right-0 z-10 w-48 bg-white border border-neutral-200 rounded-md shadow-lg">
+                                    <a href="{{ path('app_submission_send_notification', {'id': submission.id, '_token': csrf_token('submission-%d-notification'|format(submission.id))}) }}"
+                                       data-turbo-method="post"
+                                       class="flex px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
+                                    >
+                                        {{ 'action.admin.form.endpoint.send_notification'|trans }}
+                                    </a>
+                                </div>
+                            </div>
+
                             <button data-action="collapse#toggle" class="p-2 rounded-md text-neutral-600 hover:text-neutral-700 hover:bg-neutral-100">
                                 {{ ux_icon('heroicons:chevron-down-20-solid', {'class': 'size-6 transition-transform duration-300 in-aria-[expanded=true]:-rotate-180'}) }}
                                 <span class="sr-only">{{ 'action.admin.form.endpoint.show_submission_details'|trans }}</span>

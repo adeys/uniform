@@ -3,8 +3,10 @@ action:
         back_to_list: 'Back to List'
         form:
             endpoint:
+                more_actions: 'More Actions'
                 next_page: Next
                 previous_page: Previous
+                send_notification: 'Send Notification'
                 show_submission_details: 'Show Submission Details'
     cancel: Cancel
     close: Close
@@ -33,6 +35,8 @@ flash:
         notification_settings:
             updated: 'Notification settings updated.'
         updated: 'Form endpoint updated.'
+    submission:
+        notification_queued: 'Submission notification queued.'
 help:
     admin:
         form_endpoint:

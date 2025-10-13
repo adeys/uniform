@@ -80,8 +80,6 @@ final class EndpointController extends AbstractController
 
         return $this->render('admin/form/endpoint/submissions.html.twig', [
             'endpoint' => $formDefinition,
-            // 'submissions' => $submissionRepository->findBy(['form' => $formDefinition]),
-            // 'submissions' => $paginator->autoPagingIterator(),
             'submissions' => $paginator->getCurrentPageResults(),
             'columns' => $submissionService->getPriorityFormFields($formDefinition),
             'paginator' => $paginator,
