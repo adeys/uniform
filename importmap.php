@@ -23,16 +23,16 @@ return [
         'version' => '3.2.2',
     ],
     '@hotwired/turbo' => [
-        'version' => '8.0.13',
+        'version' => '8.0.18',
     ],
     'stimulus-use' => [
         'version' => '0.52.3',
     ],
     '@fontsource-variable/inter' => [
-        'version' => '5.2.5',
+        'version' => '5.2.8',
     ],
     '@fontsource-variable/inter/index.min.css' => [
-        'version' => '5.2.5',
+        'version' => '5.2.8',
         'type' => 'css',
     ],
     'prismjs' => [
