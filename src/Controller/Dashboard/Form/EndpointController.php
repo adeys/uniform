@@ -164,4 +164,25 @@ final class EndpointController extends AbstractController
             'channels' => $notificationProviders,
         ], new Response(status: $request->isMethod('GET') ? Response::HTTP_OK : Response::HTTP_UNPROCESSABLE_ENTITY));
     }
+
+    #[Route('/dashboard/forms/{id}/delete', name: 'app_dashboard_form_endpoint_delete', methods: ['POST'])]
+    public function delete(Request $request, FormDefinition $formDefinition, EntityManagerInterface $entityManager): Response
+    {
+        if ($formDefinition->getOwner() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$this->isCsrfTokenValid('delete_form_'.$formDefinition->getId(), $request->request->get('_token'))) {
+            $this->addFlash('error', t('flash.form_endpoint.delete_csrf_failed'));
+
+            return $this->redirectToRoute('app_dashboard_form_endpoint_list');
+        }
+
+        $entityManager->remove($formDefinition);
+        $entityManager->flush();
+
+        $this->addFlash('success', t('flash.form_endpoint.deleted'));
+
+        return $this->redirectToRoute('app_dashboard_form_endpoint_list');
+    }
 }

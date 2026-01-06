@@ -31,10 +31,10 @@
                                     <span >{{ 'label.yes'|trans }}</span>
                                 </div>
                             {% else %}
-                            <div class="flex items-center gap-2">
-                                {{ ux_icon('heroicons:x-circle-20-solid', {'class': 'size-5 text-destructive-600'}) }}
-                                <span>{{ 'label.no'|trans }}</span>
-                            </div>
+                                <div class="flex items-center gap-2">
+                                    {{ ux_icon('heroicons:x-circle-20-solid', {'class': 'size-5 text-destructive-600'}) }}
+                                    <span>{{ 'label.no'|trans }}</span>
+                                </div>
                             {% endif %}
                         </twig:Table:Cell>
                         <twig:Table:Cell>{{ form.submissionsCount }}</twig:Table:Cell>
@@ -46,9 +46,17 @@
                                     {{ 'label.form.endpoint.details'|trans }}
                                 </a>
 
-                                <a href="#" class="text-destructive-600 font-medium">
-                                    {{ 'label.form.endpoint.delete'|trans }}
-                                </a>
+                                <form method="post"
+                                      action="{{ path('app_dashboard_form_endpoint_delete', {'id': form.id}) }}"
+                                      onsubmit="return confirm('{{ 'message.admin.form.endpoint.confirm_delete'|trans }}');"
+                                >
+                                    <input type="hidden" name="_token"
+                                           value="{{ csrf_token('delete_form_' ~ form.id) }}"
+                                    >
+                                    <button type="submit" class="text-destructive-600 font-medium">
+                                        {{ 'label.form.endpoint.delete'|trans }}
+                                    </button>
+                                </form>
                             </div>
                         </twig:Table:Cell>
                     </twig:Table:Row>
