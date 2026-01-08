@@ -32,6 +32,8 @@ email:
 flash:
     form_endpoint:
         created: 'Form endpoint created.'
+        deleted: 'Form endpoint deleted.'
+        delete_csrf_failed: 'Unable to delete form endpoint. Please try again.'
         notification_settings:
             updated: 'Notification settings updated.'
         updated: 'Form endpoint updated.'
@@ -112,6 +114,7 @@ message:
         form:
             endpoint:
                 no_submissions: 'There are no submissions for this form.'
+                confirm_delete: 'Are you sure you want to delete this form endpoint? This action cannot be undone.'
         settings:
             email_notification:
                 help: 'Email notifications are sent to the target email address when a form is submitted.'
