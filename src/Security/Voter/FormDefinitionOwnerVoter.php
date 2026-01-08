@@ -9,11 +9,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 final class FormDefinitionOwnerVoter extends Voter
 {
-    public const OWNER = 'OWNER';
+    public const ROLE_OWNER = 'ROLE_OWNER';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return $attribute === self::OWNER && $subject instanceof FormDefinition;
+        return $attribute === self::ROLE_OWNER && $subject instanceof FormDefinition;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool

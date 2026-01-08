@@ -18,6 +18,8 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
+use Symfony\Component\ExpressionLanguage\Expression;
 
 use function Symfony\Component\Translation\t;
 
@@ -166,15 +168,11 @@ final class EndpointController extends AbstractController
     }
 
     #[Route('/dashboard/forms/{id}/delete', name: 'app_dashboard_form_endpoint_delete', methods: ['POST'])]
-    public function delete(Request $request, FormDefinition $formDefinition, EntityManagerInterface $entityManager): Response
+
+    #[IsCsrfTokenValid(id: new Expression('"delete_form_" ~ args["formDefinition"].getId()'))]
+    public function delete(FormDefinition $formDefinition, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('OWNER', $formDefinition);
-
-        if (!$this->isCsrfTokenValid('delete_form_'.$formDefinition->getId(), $request->request->get('_token'))) {
-            $this->addFlash('error', t('flash.form_endpoint.delete_csrf_failed'));
-
-            return $this->redirectToRoute('app_dashboard_form_endpoint_list');
-        }
+        $this->denyAccessUnlessGranted('ROLE_OWNER', $formDefinition);
 
         $entityManager->remove($formDefinition);
         $entityManager->flush();
