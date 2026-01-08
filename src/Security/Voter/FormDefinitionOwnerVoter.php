@@ -13,7 +13,7 @@ final class FormDefinitionOwnerVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return $attribute === self::ROLE_OWNER && $subject instanceof FormDefinition;
+        return self::ROLE_OWNER === $attribute && $subject instanceof FormDefinition;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
@@ -24,8 +24,7 @@ final class FormDefinitionOwnerVoter extends Voter
             return false;
         }
 
-        /** @var FormDefinition $subject */
+        /* @var FormDefinition $subject */
         return $subject->getOwner() === $user;
     }
 }
-

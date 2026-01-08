@@ -46,13 +46,12 @@
                                     {{ 'label.form.endpoint.details'|trans }}
                                 </a>
 
-                                <form method="post"
-                                      action="{{ path('app_dashboard_form_endpoint_delete', {'id': form.id}) }}"
-                                      data-turbo-confirm="{{ 'message.admin.form.endpoint.confirm_delete'|trans }}"
+                                <form
+                                    method="post"
+                                    action="{{ path('app_dashboard_form_endpoint_delete', {'id': form.id}) }}"
+                                    data-turbo-confirm="{{ 'message.admin.form.endpoint.confirm_delete'|trans }}"
                                 >
-                                    <input type="hidden" name="_token"
-                                           value="{{ csrf_token('delete_form_' ~ form.id) }}"
-                                    >
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete_form_' ~ form.id) }}">
                                     <button type="submit" class="text-destructive-600 font-medium">
                                         {{ 'label.form.endpoint.delete'|trans }}
                                     </button>
