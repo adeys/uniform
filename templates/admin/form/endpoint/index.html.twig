@@ -48,7 +48,7 @@
 
                                 <form method="post"
                                       action="{{ path('app_dashboard_form_endpoint_delete', {'id': form.id}) }}"
-                                      onsubmit="return confirm('{{ 'message.admin.form.endpoint.confirm_delete'|trans }}');"
+                                      data-turbo-confirm="{{ 'message.admin.form.endpoint.confirm_delete'|trans }}"
                                 >
                                     <input type="hidden" name="_token"
                                            value="{{ csrf_token('delete_form_' ~ form.id) }}"

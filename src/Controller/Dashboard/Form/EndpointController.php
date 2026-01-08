@@ -168,9 +168,7 @@ final class EndpointController extends AbstractController
     #[Route('/dashboard/forms/{id}/delete', name: 'app_dashboard_form_endpoint_delete', methods: ['POST'])]
     public function delete(Request $request, FormDefinition $formDefinition, EntityManagerInterface $entityManager): Response
     {
-        if ($formDefinition->getOwner() !== $this->getUser()) {
-            throw $this->createAccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted('OWNER', $formDefinition);
 
         if (!$this->isCsrfTokenValid('delete_form_'.$formDefinition->getId(), $request->request->get('_token'))) {
             $this->addFlash('error', t('flash.form_endpoint.delete_csrf_failed'));
